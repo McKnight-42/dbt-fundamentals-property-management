@@ -1,0 +1,73 @@
+version: 2
+
+sources:
+  - name: property_management
+    database: raw
+    schema: property_management
+    tables:
+      - name: bank_accounts
+        loaed_at_field: uploaded_at
+        freshness:
+          warn_after: { count: 24,period: hour }
+          error_after: { count: 48, period: hour}
+      - name: contact_infos
+        loaed_at_field: uploaded_at
+        freshness:
+          warn_after: { count: 24,period: hour }
+          error_after: { count: 48, period: hour}
+      - name: emails
+        loaed_at_field: uploaded_at
+        freshness:
+          warn_after: { count: 24,period: hour }
+          error_after: { count: 48, period: hour}
+      - name: email_delivery_statuses
+        loaed_at_field: uploaded_at
+        freshness:
+          warn_after: { count: 24,period: hour }
+          error_after: { count: 48, period: hour}
+      - name: leases
+        loaed_at_field: uploaded_at
+        freshness:
+          warn_after: { count: 24,period: hour }
+          error_after: { count: 48, period: hour}
+      - name: owners
+        loaed_at_field: uploaded_at
+        freshness:
+          warn_after: { count: 24,period: hour }
+          error_after: { count: 48, period: hour}
+      - name: properties
+        loaed_at_field: uploaded_at
+        freshness:
+          warn_after: { count: 24,period: hour }
+          error_after: { count: 48, period: hour}
+      - name: property_owners
+        loaed_at_field: uploaded_at
+        freshness:
+          warn_after: { count: 24,period: hour }
+          error_after: { count: 48, period: hour}
+      - name: rental_applications
+        loaed_at_field: uploaded_at
+        freshness:
+          warn_after: { count: 24,period: hour }
+          error_after: { count: 48, period: hour}
+      - name: tenants
+        loaed_at_field: uploaded_at
+        freshness:
+          warn_after: { count: 24,period: hour }
+          error_after: { count: 48, period: hour}
+      - name: transactions
+        loaed_at_field: uploaded_at
+        freshness:
+          warn_after: { count: 24,period: hour }
+          error_after: { count: 48, period: hour}
+      - name: units
+        loaed_at_field: uploaded_at
+        freshness:
+          warn_after: { count: 24,period: hour }
+          error_after: { count: 48, period: hour}
+      - name: vendors
+        loaed_at_field: uploaded_at
+        freshness:
+          warn_after: { count: 24,period: hour }
+          error_after: { count: 48, period: hour}
+        
