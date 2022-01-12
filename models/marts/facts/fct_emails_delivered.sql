@@ -10,7 +10,7 @@ final as (
         email_delivery_status.event
     
     from email_delivery_status
-    left join emails on emails.id = email_delivery_status.email_id
+    left join emails on emails.email_id = email_delivery_status.email_id
 )
 
 select * from final

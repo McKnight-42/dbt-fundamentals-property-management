@@ -18,8 +18,8 @@ final as (
         contact_infos.phone_number
 
     from tenants
-    left join bank_accounts on tenants.bank_account_id = bank_accounts.id 
-    left join contact_infos on tenants.contact_info_id = contact_infos.id
+    left join bank_accounts on tenants.bank_account_id = bank_accounts.bank_account_id
+    left join contact_infos on tenants.contact_info_id = contact_infos.contact_info_id
 )
 
 select * from final

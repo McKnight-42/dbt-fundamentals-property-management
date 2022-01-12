@@ -21,7 +21,7 @@ final as (
         units.square_feet
     
     from property_owners
-    left join properties on property_owners.property_id = properties.id
+    left join properties on property_owners.property_id = properties.property_id
     left join units on property_owners.property_id = units.property_id
 )
 

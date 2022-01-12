@@ -1,5 +1,5 @@
 select
-    id,
+    id as tenant_id,
     created_at,
     contact_info_id,
     bank_account_id,

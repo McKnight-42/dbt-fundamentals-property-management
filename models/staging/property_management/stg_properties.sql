@@ -1,5 +1,5 @@
 select
-    id,
+    id as property_id,
     created_at,
     name,
     address,

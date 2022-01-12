@@ -1,5 +1,5 @@
 select 
-    id,
+    id as email_delivery_status_id,
     created_at,
     event,
     email_id,

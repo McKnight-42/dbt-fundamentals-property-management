@@ -4,71 +4,115 @@ sources:
   - name: property_management
     database: raw
     schema: property_management
+    loaded_at_field: uploaded_at
+    freshness:
+        warn_after: { count: 1,period: day }
+        error_after: { count: 2, period: day}
     tables:
       - name: bank_accounts
-        loaded_at_field: uploaded_at
-        freshness:
-          warn_after: { count: 1,period: day }
-          error_after: { count: 2, period: day}
+        description: Raw bank_accounts data
+        columns:
+          - name: id
+            description: Primary key for bank accounts
+            tests:
+              - unique
+              - not_null
       - name: contact_infos
-        loaded_at_field: uploaded_at
-        freshness:
-          warn_after: { count: 1,period: day }
-          error_after: { count: 2, period: day}
+        description: Raw contact information data
+        columns:
+          - name: id
+            description: Primary key for contacts
+            tests:
+              - unique
+              - not_null
       - name: emails
-        loaded_at_field: uploaded_at
-        freshness:
-          warn_after: { count: 1,period: day }
-          error_after: { count: 2, period: day}
-      - name: email_delivery_statuses
-        loaded_at_field: uploaded_at
-        freshness:
-          warn_after: { count: 1,period: day }
-          error_after: { count: 2, period: day}
+        description: Raw emails data
+        columns:
+          - name: id
+            description: Primary key for emails
+            tests:
+              - unique
+              - not_null
+      - name: email_delivery_statuses 
+        description: Raw email status data
+        columns:
+          - name: id
+            description: Primary key for email delivery status
+            tests:
+              - unique
+              - not_null
       - name: leases
-        loaded_at_field: uploaded_at
-        freshness:
-          warn_after: { count: 1,period: day }
-          error_after: { count: 2, period: day}
+        description: Raw lease data
+        columns:
+          - name: id
+            description: Primary key for leases
+            tests:
+              - unique
+              - not_null
       - name: owners
-        loaded_at_field: uploaded_at
-        freshness:
-          warn_after: { count: 1,period: day }
-          error_after: { count: 2, period: day}
+        description: Raw owners data
+        columns:
+          - name: id
+            description: Primary key for owners
+            tests:
+              - unique
+              - not_null
       - name: properties
-        loaded_at_field: uploaded_at
-        freshness:
-          warn_after: { count: 1,period: day }
-          error_after: { count: 2, period: day}
+        description: Raw property data
+        columns:
+          - name: id
+            description: Primary key for properties
+            tests:
+              - unique
+              - not_null
       - name: property_owners
-        loaded_at_field: uploaded_at
-        freshness:
-          warn_after: { count: 1,period: day }
-          error_after: { count: 2, period: day}
+        description: Raw property owner data
+        columns:
+          - name: id
+            description: Primary key for property owners
+            tests:
+              - unique
+              - not_null
       - name: rental_applications
-        loaded_at_field: uploaded_at
-        freshness:
-          warn_after: { count: 1,period: day }
-          error_after: { count: 2, period: day}
+        description: Raw reantal application data
+        columns:
+          - name: id
+            description: Primary key for rental applications
+            tests:
+              - unique
+              - not_null
       - name: tenants
-        loaded_at_field: uploaded_at
-        freshness:
-          warn_after: { count: 1,period: day }
-          error_after: { count: 2, period: day}
+        description: Raw tenants data
+        columns:
+          - name: id
+            description: Primary key for tenants
+            tests:
+              - unique
+              - not_null
       - name: transactions
-        loaded_at_field: uploaded_at
-        freshness:
-          warn_after: { count: 1,period: day }
-          error_after: { count: 2, period: day}
-      - name: units
-        loaded_at_field: uploaded_at
-        freshness:
-          warn_after: { count: 1,period: day }
-          error_after: { count: 2, period: day}
+        description: Raw transaction data
+        columns:
+          - name: id
+            description: Primary key for transactions
+            tests:
+              - unique
+              - not_null
+      - name: units 
+        description: Raw unit data
+        columns:
+          - name: id
+            description: Primary key for units
+            tests:
+              - unique
+              - not_null
       - name: vendors
-        loaded_at_field: uploaded_at
-        freshness:
-          warn_after: { count: 1,period: day }
-          error_after: { count: 2, period: day}
+        description: Raw vendor data
+        columns:
+          - name: id
+            description: Primary key for vendors
+            tests:
+              - unique
+              - not_null
+       
         
         

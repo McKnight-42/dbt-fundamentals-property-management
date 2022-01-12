@@ -1,0 +1,235 @@
+version: 2
+
+models:
+    - name: stg_bank_accounts
+      description: Bank account information
+      columns:
+        - name: bank_account_id
+          description: Primary key
+          tests:
+           - unique
+           - not_null
+
+    - name: stg_contact_infos
+      description: Contact information
+      columns:
+        - name: contact_info_id
+          description: Primary key
+          tests:
+           - unique
+           - not_null 
+
+    - name: stg_email_delivery_statuses
+      description: email status
+      columns:
+        - name: email_delivery_status_id
+          description: Primary key
+          tests:
+           - unique
+           - not_null
+        - name: event
+          description: status of email
+          tests:
+            - accepted_values:
+                values:
+                  - processing
+                  - rejected
+                  - delivered
+                  - opened
+                  - clicked
+                  - processed
+        - name: email_id
+          description: Foreign reference key to emails table
+          tests:
+            - relationships:
+                to: ref('stg_emails')
+                field: email_id
+
+    - name: stg_emails
+      description: email information
+      columns:
+        - name: email_id
+          description: Primary key
+          tests:
+          - unique
+           - not_null 
+      
+    - name: stg_leases
+      description: Lease information
+      columns:
+        - name: lease_id
+          description: Primary key
+          tests:
+           - unique
+           - not_null 
+        - name: unit_id
+          description: Foreign ref key to stg_units table
+          tests:
+            - relationships:
+                to: ref('stg_units')
+                field: unit_id
+        - name: rental_application_id
+          description: Foreign ref key to stg_rental_applications table
+          tests:
+            - relationships:
+                to: ref('stg_rental_applications')
+                field: rental_application_id
+        - name: completed
+          description: boolean stats weather lease is finished
+          tests:
+            - accepted_values:
+                values:
+                  - true
+                  - false
+    
+    - name: stg_owners
+      description: owners information
+      columns:
+        - name: owner_id
+          description: Primary key
+          tests:
+          - unique
+           - not_null 
+        - name: contact_info_id
+          description: Foreign ref key to stg_contact_infos table
+          tests:
+            - relationships:
+                to: ref('stg_contact_infos')
+                field: contact_info_id
+        - name: bank_account_id
+          description: Foreign ref key to stg_bank_accounts table
+          tests:
+            - relationships:
+                to: ref('stg_bank_accounts')
+                field: bank_account_id
+    
+    - name: stg_properties
+      description: proptery information
+      columns:
+        - name: property_id
+          description: Primary key
+          tests:
+          - unique
+           - not_null 
+    
+
+    - name: stg_property_owners
+      description: property owner information
+      columns:
+        - name: property_owner_id
+          description: Primary key
+          tests:
+          - unique
+           - not_null 
+        - name: property_id
+          description: Foreign ref key to stg_properties table
+          tests:
+            - relationships:
+                to: ref('stg_properties')
+                field: property_id
+        - name: owner_id
+          description: Foreign ref key to stg_owners table
+          tests:
+            - relationships:
+                to: ref('stg_owners')
+                field: owner_id
+
+    - name: stg_rental_applications
+      description: rental application information
+      columns:
+        - name: rental_application_id
+          description: Primary key
+          tests:
+          - unique
+           - not_null 
+        - name: status
+          tests:
+            - accepted_values:
+                values:
+                  - approved
+                  - converted_to_tenant
+                  - denied
+
+    - name: stg_tenants
+      description: tenant information
+      columns:
+        - name: tenant_id
+          description: Primary key
+          tests:
+          - unique
+           - not_null 
+        - name: contact_info_id
+          description: Foreign ref key to stg_contact_infos table
+          tests:
+            - relationships:
+                to: ref('stg_contact_infos')
+                field: contact_info_id
+        - name: bank_account_id
+          description: Foreign ref key to stg_bank_accounts table
+          tests:
+            - relationships:
+                to: ref('stg_bank_accounts')
+                field: bank_account_id
+        - name: lease_id
+          description: Foreign ref key to stg_leases table
+          tests:
+            - relationships:
+                to: ref('stg_leases')
+                field: lease_id
+    
+    - name: stg_transactions
+      description: transaction information
+      columns:
+        - name: transaction_id
+          description: Primary key
+          tests:
+          - unique
+           - not_null
+
+    - name: stg_units
+      description: unit information
+      columns:
+        - name: unit_id
+          description: Primary key
+          tests:
+          - unique
+           - not_null
+        - name: property_id
+          description: Foreign ref key to stg_properites table
+          tests:
+            - relationships:
+                to: ref('stg_properties')
+                field: property_id
+        - name: status
+          description: status of unit
+          tests:
+            - accepted_values:
+                values:
+                  - occupied
+                  - rented
+                  - vacant
+                  - construction
+
+    - name: stg_vendors
+      description: vendor information
+      columns:
+        - name: vendor_id
+          description: Primary key
+          tests:
+          - unique
+           - not_null
+        - name: contact_info_id
+          description: Foreign ref key to stg_contact_infos table
+          tests:
+            - relationships:
+                to: ref('stg_contact_infos')
+                field: contact_info_id
+        - name: bank_account_id
+          description: Foreign ref key to stg_bank_accounts table
+          tests:
+            - relationships:
+                to: ref('stg_bank_accounts')
+                field: bank_account_id
+
+
+    

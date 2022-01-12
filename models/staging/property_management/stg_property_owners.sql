@@ -1,5 +1,5 @@
 select
-    id,
+    id as property_owner_id,
     property_id,
     owner_id,
     uploaded_at

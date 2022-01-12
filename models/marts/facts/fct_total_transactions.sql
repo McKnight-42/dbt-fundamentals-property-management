@@ -20,7 +20,7 @@ final as (
         coalesce(total_transactions.amount,0) as amount
         
     from transactions
-    left join total_transactions on transactions.id = total_transactions.order_id
+    left join total_transactions on transactions.transaction_id = total_transactions.order_id
 )
 
 select * from final

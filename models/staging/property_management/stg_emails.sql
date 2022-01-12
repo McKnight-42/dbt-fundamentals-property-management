@@ -1,5 +1,5 @@
 select
-    id,
+    id as email_id,
     created_at,
     sent_at,
     subject,

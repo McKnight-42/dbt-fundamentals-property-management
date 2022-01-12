@@ -1,5 +1,5 @@
 select
-    id,
+    id as unit_id,
     created_at,
     rent,
     property_id,

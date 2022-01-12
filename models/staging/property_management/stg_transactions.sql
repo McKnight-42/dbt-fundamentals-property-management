@@ -1,5 +1,5 @@
 select
-    id,
+    id as transaction_id,
     created_at,
     deleted_at,
     type,

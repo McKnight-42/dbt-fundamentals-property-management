@@ -27,8 +27,8 @@ final as (
 
     from owners
 
-    left join bank_accounts on owners.bank_account_id = bank_accounts.id
-    left join contact_infos on owners.contact_info_id = contact_infos.id
+    left join bank_accounts on owners.bank_account_id = bank_accounts.bank_account_id
+    left join contact_infos on owners.contact_info_id = contact_infos.contact_info_id
 )
 
 select * from final

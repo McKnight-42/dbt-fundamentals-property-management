@@ -1,5 +1,5 @@
 select
-    id,
+    id as lease_id,
     created_at,
     unit_id,
     start_date,

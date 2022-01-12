@@ -19,8 +19,8 @@ final as (
 
     from transactions
     left join units on transactions.amount = units.rent
-    left join leases on leases.unit_id = units.id 
-    left join tenants on tenants.lease_id = leases.id
+    left join leases on leases.unit_id = units.unit_id
+    left join tenants on tenants.lease_id = leases.lease_id
 )
 
 select * from final

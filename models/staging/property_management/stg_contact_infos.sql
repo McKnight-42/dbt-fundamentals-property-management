@@ -1,5 +1,5 @@
 select
-    id,
+    id as contact_info_id,
     created_at,
     first_name,
     last_name,
