@@ -6,68 +6,69 @@ sources:
     schema: property_management
     tables:
       - name: bank_accounts
-        loaed_at_field: uploaded_at
+        loaded_at_field: uploaded_at
         freshness:
-          warn_after: { count: 24,period: hour }
-          error_after: { count: 48, period: hour}
+          warn_after: { count: 1,period: day }
+          error_after: { count: 2, period: day}
       - name: contact_infos
-        loaed_at_field: uploaded_at
+        loaded_at_field: uploaded_at
         freshness:
-          warn_after: { count: 24,period: hour }
-          error_after: { count: 48, period: hour}
+          warn_after: { count: 1,period: day }
+          error_after: { count: 2, period: day}
       - name: emails
-        loaed_at_field: uploaded_at
+        loaded_at_field: uploaded_at
         freshness:
-          warn_after: { count: 24,period: hour }
-          error_after: { count: 48, period: hour}
+          warn_after: { count: 1,period: day }
+          error_after: { count: 2, period: day}
       - name: email_delivery_statuses
-        loaed_at_field: uploaded_at
+        loaded_at_field: uploaded_at
         freshness:
-          warn_after: { count: 24,period: hour }
-          error_after: { count: 48, period: hour}
+          warn_after: { count: 1,period: day }
+          error_after: { count: 2, period: day}
       - name: leases
-        loaed_at_field: uploaded_at
+        loaded_at_field: uploaded_at
         freshness:
-          warn_after: { count: 24,period: hour }
-          error_after: { count: 48, period: hour}
+          warn_after: { count: 1,period: day }
+          error_after: { count: 2, period: day}
       - name: owners
-        loaed_at_field: uploaded_at
+        loaded_at_field: uploaded_at
         freshness:
-          warn_after: { count: 24,period: hour }
-          error_after: { count: 48, period: hour}
+          warn_after: { count: 1,period: day }
+          error_after: { count: 2, period: day}
       - name: properties
-        loaed_at_field: uploaded_at
+        loaded_at_field: uploaded_at
         freshness:
-          warn_after: { count: 24,period: hour }
-          error_after: { count: 48, period: hour}
+          warn_after: { count: 1,period: day }
+          error_after: { count: 2, period: day}
       - name: property_owners
-        loaed_at_field: uploaded_at
+        loaded_at_field: uploaded_at
         freshness:
-          warn_after: { count: 24,period: hour }
-          error_after: { count: 48, period: hour}
+          warn_after: { count: 1,period: day }
+          error_after: { count: 2, period: day}
       - name: rental_applications
-        loaed_at_field: uploaded_at
+        loaded_at_field: uploaded_at
         freshness:
-          warn_after: { count: 24,period: hour }
-          error_after: { count: 48, period: hour}
+          warn_after: { count: 1,period: day }
+          error_after: { count: 2, period: day}
       - name: tenants
-        loaed_at_field: uploaded_at
+        loaded_at_field: uploaded_at
         freshness:
-          warn_after: { count: 24,period: hour }
-          error_after: { count: 48, period: hour}
+          warn_after: { count: 1,period: day }
+          error_after: { count: 2, period: day}
       - name: transactions
-        loaed_at_field: uploaded_at
+        loaded_at_field: uploaded_at
         freshness:
-          warn_after: { count: 24,period: hour }
-          error_after: { count: 48, period: hour}
+          warn_after: { count: 1,period: day }
+          error_after: { count: 2, period: day}
       - name: units
-        loaed_at_field: uploaded_at
+        loaded_at_field: uploaded_at
         freshness:
-          warn_after: { count: 24,period: hour }
-          error_after: { count: 48, period: hour}
+          warn_after: { count: 1,period: day }
+          error_after: { count: 2, period: day}
       - name: vendors
-        loaed_at_field: uploaded_at
+        loaded_at_field: uploaded_at
         freshness:
-          warn_after: { count: 24,period: hour }
-          error_after: { count: 48, period: hour}
+          warn_after: { count: 1,period: day }
+          error_after: { count: 2, period: day}
+        
         
