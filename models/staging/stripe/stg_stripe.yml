@@ -27,3 +27,7 @@ models:
                 values:
                     - success
                     - fail
+        - name: amount
+          description: Amount of payment
+        - name: created_at
+          description: When payment infomration was created

@@ -1,26 +1,29 @@
 with transactions as (
-    select * from {{ ref('stg_transactions') }}
+
+    select transaction_id, created_at, amount from {{ ref('stg_transactions') }}
+
 ),
-payments as (
-    select * from {{ ref('stg_payments') }}
+
+stripe_payments as (
+
+    select payment_id as id, created_at, amount from {{ ref('stg_payments') }}
+
 ),
-total_transactions as (
-    select
-        order_id,
-        sum(case when status = 'success' then amount end ) as amount
-    from payments
-    group by 1
+
+unioned as (
+
+    select * from stripe_payments 
+    union all
+    select * from transactions
+
 ),
 
 final as (
-    select
-        transactions.type,
-        transactions.payer,
-        transactions.payee,
-        coalesce(total_transactions.amount,0) as amount
+
+    select *
         
-    from transactions
-    left join total_transactions on transactions.transaction_id = total_transactions.order_id
+
+    from unioned
 )
 
-select * from final
+select * from final 

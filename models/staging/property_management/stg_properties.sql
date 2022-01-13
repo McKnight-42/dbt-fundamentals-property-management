@@ -6,6 +6,7 @@ select
     city,
     state,
     zip_code,
+    type,
     year_built,
     uploaded_at
 

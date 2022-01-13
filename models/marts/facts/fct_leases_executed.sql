@@ -9,10 +9,11 @@ leases as (
 ),
 final as (
     select
+        tenants.*,
+        leases.unit_id,
         rental_applications.status,
         leases.start_date,
         leases.end_date,
-        leases.unit_id,
         leases.completed
 
     from tenants

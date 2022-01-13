@@ -9,7 +9,9 @@ units as (
 ),
 final as (
     select
-        property_owners.*,
+        property_owners.property_owner_id,
+        properties.property_id,
+        units.unit_id,
         properties.name,
         properties.address,
         properties.city,
@@ -17,9 +19,13 @@ final as (
         properties.zip_code,
         properties.year_built,
         units.rent,
-        units.bathrooms,
-        units.square_feet
-    
+        units.status,
+        units.square_feet,
+        units.bedrooms,
+        units.bathrooms
+
+
+
     from property_owners
     left join properties on property_owners.property_id = properties.property_id
     left join units on property_owners.property_id = units.property_id

@@ -13,6 +13,7 @@ transactions as (
 
 final as (
     select
+        transactions.*,
         leases.unit_id,
         units.rent,
         units.name
