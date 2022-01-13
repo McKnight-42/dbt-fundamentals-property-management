@@ -1,0 +1,336 @@
+version: 2
+
+sources:
+  - name: property_management
+    database: raw
+    schema: property_management
+    loaded_at_field: uploaded_at
+    freshness:
+        warn_after: { count: 1,period: day }
+        error_after: { count: 2, period: day}
+    tables:
+      - name: bank_accounts
+        description: Raw bank_accounts data
+        columns:
+          - name: id
+            description: Primary key for bank accounts
+            tests:
+              - unique
+              - not_null
+          - name: created_at
+            description: when raw data was created
+          - name: name
+            description: name on account in raw data
+          - name: bank_account_number
+            description: Bank account number
+          - name: routing_number
+            description: bank account routing number
+          - name: uploaded_at
+            description: when raw data was added to system
+
+      - name: contact_infos
+        description: Raw contact information data
+        columns:
+          - name: id
+            description: Primary key for contacts
+            tests:
+              - unique
+              - not_null
+          - name: created_at
+            description: When data was created
+          - name: first_name
+            description: First name of contact
+          - name: last_name
+            description: Last name of contact
+          - name: email_address
+            description: Email of contact
+          - name: phone_number
+            description: Phone number for contact
+          - name: uploaded_at
+            description: When data was added to system
+
+      - name: emails
+        description: Raw emails data
+        columns:
+          - name: id
+            description: Primary key for emails
+            tests:
+              - unique
+              - not_null
+          - name: created_at
+            description: when entry was created
+          - name: sent_at
+            description: When email was registered as sent
+          - name: subject
+            description: title/brief summary of email
+          - name: body
+            description: main body of email
+          - name: delivered_at
+            description: When email was registered as delivered
+          - name: uploaded_at
+            description: when entry was added to system
+
+      - name: email_delivery_statuses 
+        description: Raw email status data
+        columns:
+          - name: id
+            description: Primary key for email delivery status
+            tests:
+              - unique
+              - not_null
+          - name: created_at
+            description: When entry was created
+          - name: event
+            description: status of email
+            tests:
+              - accepted_values:
+                  values:
+                    - processing
+                    - rejected
+                    - delivered
+                    - opened
+                    - clicked
+                    - processed
+          - name: email_id
+            description: foreign ref key to emails table
+          - name: uploaded_at
+            description: When entry was added to system
+
+      - name: leases
+        description: Raw lease data
+        columns:
+          - name: id
+            description: Primary key for leases
+            tests:
+              - unique
+              - not_null
+          - name: created_at
+            description: when entry was created
+          - name: unit_id
+            description: Foreign ref key to units tables
+          - name: start_date
+            description: Start date of lease
+          - name: end_date
+            description: end date of lease
+          - name: rental_application_id
+            description: Foreign ref key to rental applications table
+          - name: completed
+            description: status of lease
+            tests:
+              - accepted_values:
+                  values:
+                    - true
+                    - false
+          - name: uploaded_at
+            description: When entry was added to system
+          
+      - name: owners
+        description: Raw owners data
+        columns:
+          - name: id
+            description: Primary key for owners
+            tests:
+              - unique
+              - not_null
+          - name: created_at
+            description: when owner entry was created
+          - name: contact_info_id
+            description: Foreign ref key to contact_infos raw data
+          - name: bank_account_id
+            description: Foreign ref key to bank_accounts raw data
+          - name: uploaded_at
+            description: When owner entry was added to system
+
+      - name: properties
+        description: Raw property data
+        columns:
+          - name: id
+            description: Primary key for properties
+            tests:
+              - unique
+              - not_null
+          - name: created_at
+            description: when property entry was created
+          - name: name
+            description: Name of property
+          - name: address
+            description: Address of property
+          - name: city
+            description: City property is located
+          - name: state
+            description: State property is located
+          - name: zip_code
+            description: Zip code is located
+          - name: type
+            description: type of proerty
+            test:
+              - accepted_values:
+                  values:
+                    - commercial
+                    - homeowners_association
+                    - multi_family_residence
+                    - single_family_residence
+          - name: year_built
+            description: Year property was built
+          - name: uploaded_at
+            description: When property information was added to system
+
+      - name: property_owners
+        description: Raw property owner data
+        columns:
+          - name: id
+            description: Primary key for property owners
+            tests:
+              - unique
+              - not_null
+          - name: created_at
+            description: when property owner entry was created
+          - name: contact_info_id
+            description: Foreign ref key to contact_infos
+          - name: bank_account_id
+            description: Foreign ref key to bank_accounts
+          - name: uploaded_at
+            description: when entry was added to system
+
+      - name: rental_applications
+        description: Raw reantal application data
+        columns:
+          - name: id
+            description: Primary key for rental applications
+            tests:
+              - unique
+              - not_null
+          - name: created_at
+            description: When rental application was created
+          - name: deleted_at
+            description: when application is deleted
+          - name: status
+            description: status of application
+            tests:
+              - accepted_values:
+                  values:
+                    - denied
+                    - approved
+                    - converted_to_tenant
+          - name: contact_info_id
+            description: Foreign ref key to contact_infos
+          - name: uploaded_at
+            description: When entry was added to system
+
+
+      - name: tenants
+        description: Raw tenants data
+        columns:
+          - name: id
+            description: Primary key for tenants
+            tests:
+              - unique
+              - not_null
+          - name: created_at
+            description: When tenant information was created
+          - name: contact_info_id
+            description: Foreign ref key to contact_infos
+          - name: bank_account_id
+            description: Foreign ref key to bank_accounts
+          - name: move_in_date
+            description: Earliest date tenant can move in
+          - name: move_out_date
+            description: Expected move out date of tenant
+          - name: notice_date
+            description: Date move out notice was given to tenant
+          - name: lease_id
+            description: Foreign ref key to leases
+          - name: uploaded_at
+            description: when entry was added to system
+
+      - name: transactions
+        description: Raw transaction data
+        columns:
+          - name: id
+            description: Primary key for transactions
+            tests:
+              - unique
+              - not_null
+          - name: created_at
+            description: date transaction information was created
+          - name: deleted_at
+            description: date transaction info was deleted
+          - name: type
+            description: type of transaction
+            tests:
+              - accepted_values:
+                  values:
+                    - charge
+                    - credit
+          - name: amount
+            description: amount being paid
+          - name: payer
+            description: person paying
+          - name: payee
+            description: person being paid
+          - name: uploaded_at
+            description: When entry was added to system
+
+      - name: units 
+        description: Raw unit data
+        columns:
+          - name: id
+            description: Primary key for units
+            tests:
+              - unique
+              - not_null
+          - name: created_at
+            description: When unit information was created
+          - name: rent
+            description: Rent price for unit
+          - name: property_id
+            description: Foreign ref key to properties tables
+          - name: name
+            description: Name/number for unit
+          - name: bedrooms
+            description: Number of bedrooms in unit
+          - name: bathrooms
+            description: Number of bathrooms in unit
+          - name: sqaure_foot
+            description: Sqaure footage of unit
+          - name: status
+            description: Current status of unit 
+            tests:
+              - accepted_values:
+                  values:
+                    - construction
+                    - occupied
+                    - rented
+                    - vacant
+          - name: address_1
+            description: Primary address for unit
+          - name: address_2
+            description: Secondary address for unit
+          - name: city
+            description: City unit is located
+          - name: state
+            description: State unit is located
+          - name: zip_code
+            description: Zip code unit is in
+          - name: uploaded_at
+            description: when entry was added to system
+
+      - name: vendors
+        description: Raw vendor data
+        columns:
+          - name: id
+            description: Primary key for vendors
+            tests:
+              - unique
+              - not_null
+          - name: created_at
+            description: when vendor information was created
+          - name: contact_info_id
+            description: Foreign ref key to contact_infos
+          - name: bank_account_id
+            description: Foreign ref key to bank_accounts
+          - name: uploaded_at
+            description: when entry was added to system
+       
+        
+        

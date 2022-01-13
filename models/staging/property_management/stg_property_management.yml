@@ -1,0 +1,382 @@
+version: 2
+
+models:
+    - name: stg_bank_accounts
+      description: Bank account information
+      columns:
+        - name: bank_account_id
+          description: Primary key
+          tests:
+           - unique
+           - not_null
+        - name: created_at
+          description: Day account was created
+        - name: name
+          description: Name on account
+        - name: bank_account_number
+          description: Bank account identifer number
+        - name: routing_number
+          description: bank account routing number
+        - name: uploaded_at
+          description: when account was added to system
+
+    - name: stg_contact_infos
+      description: Contact information
+      columns:
+        - name: contact_info_id
+          description: Primary key
+          tests:
+           - unique
+           - not_null 
+        - name: created_at
+          description: Date contact was created
+        - name: first_name
+          description: First name of contact
+        - name: last_name
+          description: Last name of contact
+        - name: email_address
+          description: Email of contact
+        - name: phone_number
+          description: Phone number of contact
+        - name: uploaded_at
+          descripiton: when contact was added to system
+
+    - name: stg_email_delivery_statuses
+      description: email status
+      columns:
+        - name: email_delivery_status_id
+          description: Primary key
+          tests:
+           - unique
+           - not_null
+        - name: created_at
+          description: Day email status was created
+        - name: event
+          description: status of email
+          tests:
+            - accepted_values:
+                values:
+                  - processing
+                  - rejected
+                  - delivered
+                  - opened
+                  - clicked
+                  - processed
+        - name: email_id
+          description: Foreign reference key to emails table
+          tests:
+            - relationships:
+                to: ref('stg_emails')
+                field: email_id
+        - name: uploaded_at
+          description: Day email/email status was added to system
+
+    - name: stg_emails
+      description: email information
+      columns:
+        - name: email_id
+          description: Primary key
+          tests:
+          - unique
+           - not_null
+        - name: created_at
+          descripiton: Day email was created
+        - name: sent_at
+          description: When email was sent
+        - name: subject
+          description: Title/brief context for email
+        - name: body
+          description: Message of email
+        - name: delivered_at
+          description: When email was registered as delivered
+        - name: uploaded_at
+          description: When email was added to system
+      
+    - name: stg_leases
+      description: Lease information
+      columns:
+        - name: lease_id
+          description: Primary key
+          tests:
+           - unique
+           - not_null
+        - name: created_at
+          description: Date lease was created
+        - name: unit_id
+          description: Foreign ref key to stg_units table
+          tests:
+            - relationships:
+                to: ref('stg_units')
+                field: unit_id
+        - name: start_date
+          description: Beigin date of lease time period
+        - name: end_date
+          description: End date of lease time period
+        - name: rental_application_id
+          description: Foreign ref key to stg_rental_applications table
+          tests:
+            - relationships:
+                to: ref('stg_rental_applications')
+                field: rental_application_id
+        - name: completed
+          description: boolean stats weather lease is finished
+          tests:
+            - accepted_values:
+                values:
+                  - true
+                  - false
+        - name: uploaded_at
+          description: Date lease was added to system
+    
+    - name: stg_owners
+      description: owners information
+      columns:
+        - name: owner_id
+          description: Primary key
+          tests:
+          - unique
+           - not_null 
+        - name: created_at
+          description: Date owner info was created
+        - name: contact_info_id
+          description: Foreign ref key to stg_contact_infos table
+          tests:
+            - relationships:
+                to: ref('stg_contact_infos')
+                field: contact_info_id
+        - name: bank_account_id
+          description: Foreign ref key to stg_bank_accounts table
+          tests:
+            - relationships:
+                to: ref('stg_bank_accounts')
+                field: bank_account_id
+        - name: uploaded_at
+          description: date owner info was added to system
+    
+    - name: stg_properties
+      description: proptery information
+      columns:
+        - name: property_id
+          description: Primary key
+          tests:
+          - unique
+           - not_null
+        - name: created_at
+          description: Date proerpty information was created
+        - name: name
+          description: Name of property
+        - name: address
+          description: Address of property
+        - name: city
+          description: City property is in
+        - name: state
+          description: State property is in
+        - name: zip_code
+          description: Zip code property is located
+        - name: type
+          description: type of proerty
+          test:
+            - accepted_values:
+                values:
+                  - commercial
+                  - homeowners_association
+                  - multi_family_residence
+                  - single_family_residence
+        - name: year_built
+          description: Year property was built in
+        - name: created_at
+          description: Date property information was added to system
+    
+
+    - name: stg_property_owners
+      description: property owner information
+      columns:
+        - name: property_owner_id
+          description: "{{ doc('property_owner_id')}}"
+          tests:
+          - unique
+           - not_null 
+        - name: property_id
+          description: "{{ doc('property_id')}}" 
+          tests:
+            - relationships:
+                to: ref('stg_properties')
+                field: property_id
+        - name: owner_id
+          description: "{{ doc('owner_id')}}"
+          tests:
+            - relationships:
+                to: ref('stg_owners')
+                field: owner_id
+        - name: uploaded_at
+          description: Date property owner information was addded to system
+
+    - name: stg_rental_applications
+      description: rental application information
+      columns:
+        - name: rental_application_id
+          description: Primary key
+          tests:
+          - unique
+           - not_null
+        - name: created_at
+          description: Date application was submited/created
+        - name: deleted_at
+          description: Date application was deleted
+        - name: status
+          tests:
+            - accepted_values:
+                values:
+                  - approved
+                  - converted_to_tenant
+                  - denied
+        - name: contact_info_id
+          description: Foreign ref key to stg_contact_infos
+          tests:
+            - relationships:
+                to: ref('stg_contact_infos')
+                field: contact_info_id
+        - name: uploaded_at
+          description: Date rental application was added to system
+
+
+    - name: stg_tenants
+      description: tenant information
+      columns:
+        - name: tenant_id
+          description: Primary key
+          tests:
+          - unique
+           - not_null 
+        - name: created_at
+          description: date tenant information was created
+        - name: contact_info_id
+          description: Foreign ref key to stg_contact_infos table
+          tests:
+            - relationships:
+                to: ref('stg_contact_infos')
+                field: contact_info_id
+        - name: bank_account_id
+          description: Foreign ref key to stg_bank_accounts table
+          tests:
+            - relationships:
+                to: ref('stg_bank_accounts')
+                field: bank_account_id
+        - name: move_in_date
+          description: Date tenant was allowed to move in
+        - name: move_out_date
+          description: Date tenant had to be moved out by
+        - name: notice_date
+          description: Date move out notice was given to tenant
+        - name: lease_id
+          description: Foreign ref key to stg_leases table
+          tests:
+            - relationships:
+                to: ref('stg_leases')
+                field: lease_id
+        - name: uploaded_at
+          description: Date tenant information was added to system
+    
+    - name: stg_transactions
+      description: transaction information
+      columns:
+        - name: transaction_id
+          description: Primary key
+          tests:
+          - unique
+           - not_null
+        - name: created_at
+          description: Date transaction ifnromation was created
+        - name: deleted_at
+          description: Date transaction information was deleted
+        - name: type
+          description: type of payment
+          tests:
+            - accepted_values:
+                values:
+                  - charge
+                  - credit
+        - name: amount
+          description: Payment amount
+        - name: payer
+          description: Person giving payment
+        - name: payee
+          description: Person recieiving payment
+        - name: uploaded_at
+          description: Date transaction information was added to system
+
+    - name: stg_units
+      description: unit information
+      columns:
+        - name: unit_id
+          description: Primary key
+          tests:
+          - unique
+           - not_null
+        - name: created_at
+          descripiton: Date unit information was created
+        - name: rent
+          description: Rent price for the unit
+        - name: property_id
+          description: Foreign ref key to stg_properites table
+          tests:
+            - relationships:
+                to: ref('stg_properties')
+                field: property_id
+        - name: name
+          descripiton: Name/room number of unit
+        - name: bedrooms
+          description: Number of bedrooms in unit
+        - name: bathrooms
+          description: Number of bathrooms in unit
+        - name: square_feet
+          description: Sqaure footage of unit
+        - name: status
+          description: status of unit
+          tests:
+            - accepted_values:
+                values:
+                  - occupied
+                  - rented
+                  - vacant
+                  - construction
+        - name: address_1
+          description: Address of unit
+        - name: address_2
+          description: Secondary address of unit
+        - name: city
+          description: City units building is located in
+        - name: state
+          description: State units building is located in
+        - name: zip_code
+          description: Zip code units building is located in
+        - name: uploaded_at
+          description: Date unit information was added to system
+
+    - name: stg_vendors
+      description: vendor information
+      columns:
+        - name: vendor_id
+          description: Primary key
+          tests:
+          - unique
+           - not_null
+        - name: created_at
+          description: Date vendor information was created
+        - name: contact_info_id
+          description: Foreign ref key to stg_contact_infos table
+          tests:
+            - relationships:
+                to: ref('stg_contact_infos')
+                field: contact_info_id
+        - name: bank_account_id
+          description: Foreign ref key to stg_bank_accounts table
+          tests:
+            - relationships:
+                to: ref('stg_bank_accounts')
+                field: bank_account_id
+        - name: uploaded_at
+          description: Date vendor information was added to system
+
+
+    
